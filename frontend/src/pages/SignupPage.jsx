@@ -22,7 +22,15 @@ export default function SignupPage() {
       navigate('/app/upload');
     } catch (err) {
       console.error(err);
-      setError('Failed to create an account. ' + (err.message || ''));
+      if (err.code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists. Try signing in.');
+      } else if (err.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters.');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.');
+      } else {
+        setError('Failed to create an account. ' + (err.message || ''));
+      }
     } finally {
       setLoading(false);
     }
