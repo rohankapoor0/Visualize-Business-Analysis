@@ -68,6 +68,11 @@ The backend will start on `http://localhost:8080`.
 # Navigate to frontend folder
 cd frontend
 npm install
+
+# Configure environment variables (optional for local defaults)
+cp .env.example .env
+
+# Start development server
 npm run dev
 ```
 The application will be accessible at `http://localhost:5173`.
