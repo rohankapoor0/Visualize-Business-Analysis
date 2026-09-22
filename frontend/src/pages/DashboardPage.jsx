@@ -24,7 +24,7 @@ export default function DashboardPage() {
         if(mounted) setData(res);
       } catch (err) {
         console.error(err);
-        if(mounted) setError('Failed to load dashboard data. Is the backend running?');
+        if(mounted) setError(err.response?.data?.message || 'Failed to load dashboard data. Is the backend running?');
       } finally {
         if(mounted) setLoading(false);
       }
