@@ -43,7 +43,7 @@ export default function UploadPage() {
     }
   };
 
-  const handeUpload = async () => {
+  const handleUpload = async () => {
     if (!file) return;
     setStatus('uploading');
     try {
@@ -53,7 +53,7 @@ export default function UploadPage() {
     } catch (err) {
       console.error(err);
       setStatus('error');
-      setErrorMsg('Upload failed. Note: Ensure the backend is running.');
+      setErrorMsg(err.response?.data?.message || 'Upload failed. Note: Ensure the backend is running.');
     }
   };
 
@@ -122,7 +122,7 @@ export default function UploadPage() {
           {file && status !== 'success' && (
             <div className="w-full mt-8 flex justify-center">
               <button 
-                onClick={(e) => { e.stopPropagation(); handeUpload(); }}
+                onClick={(e) => { e.stopPropagation(); handleUpload(); }}
                 disabled={status === 'uploading'}
                 className="flex items-center justify-center gap-3 w-full sm:w-auto bg-primary text-white px-10 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
               >
