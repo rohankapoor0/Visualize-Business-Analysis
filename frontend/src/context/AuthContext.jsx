@@ -50,10 +50,17 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       if (user) {
         // Fetch extra user info from Firestore
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setUserData(docSnap.data());
+          } else {
+            setUserData({ name: user.displayName || user.email?.split('@')[0] || 'User', email: user.email, plan: 'Free Plan' });
+          }
+        } catch (err) {
+          console.error('Failed to fetch user profile data:', err);
+          setUserData({ name: user.displayName || user.email?.split('@')[0] || 'User', email: user.email, plan: 'Free Plan' });
         }
       } else {
         setUserData(null);
