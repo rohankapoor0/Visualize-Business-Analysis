@@ -39,6 +39,14 @@ public class ApiResponse<T> {
         return response;
     }
 
+    public static <T> ApiResponse<T> error(String message, T data) {
+        ApiResponse<T> response = new ApiResponse<>();
+        response.setSuccess(false);
+        response.setMessage(message);
+        response.setData(data);
+        return response;
+    }
+
     // --- Getters and Setters ---
 
     public boolean isSuccess() { return success; }
