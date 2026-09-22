@@ -122,9 +122,13 @@ public class DatasetService {
 
     private DatasetResponse toResponse(Dataset d) {
         Object colMeta = null;
-        try {
-            colMeta = objectMapper.readValue(d.getColumnMetadata(), Object.class);
-        } catch (Exception ignored) {}
+        if (d.getColumnMetadata() != null && !d.getColumnMetadata().isBlank()) {
+            try {
+                colMeta = objectMapper.readValue(d.getColumnMetadata(), Object.class);
+            } catch (Exception e) {
+                log.warn("Failed to deserialize columnMetadata for dataset id {}: {}", d.getId(), e.getMessage());
+            }
+        }
 
         return new DatasetResponse(
                 d.getId(), d.getName(), d.getOriginalFilename(),
