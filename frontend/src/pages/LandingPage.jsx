@@ -239,7 +239,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 pt-4">
           <div className="flex flex-col items-center md:items-start gap-4">
             <span className="text-2xl font-extrabold tracking-tighter font-headline text-on-surface">Visualize AI</span>
-            <p className="text-on-surface-variant text-sm font-medium">© 2024 Intelligence Curator. All rights reserved.</p>
+            <p className="text-on-surface-variant text-sm font-medium">© {new Date().getFullYear()} Visualize AI. All rights reserved.</p>
           </div>
           <div className="flex gap-10 text-sm font-bold text-on-surface-variant">
             <button 
