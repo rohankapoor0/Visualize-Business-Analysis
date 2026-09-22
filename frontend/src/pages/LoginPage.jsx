@@ -21,7 +21,13 @@ export default function LoginPage() {
       navigate('/app/upload');
     } catch (err) {
       console.error(err);
-      setError('Invalid email or password.');
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+        setError('Invalid email or password.');
+      } else if (err.code === 'auth/too-many-requests') {
+        setError('Access temporarily disabled due to too many failed login attempts. Please try again later.');
+      } else {
+        setError(err.message || 'Invalid email or password.');
+      }
     } finally {
       setLoading(false);
     }
